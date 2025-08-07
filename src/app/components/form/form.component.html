@@ -1,45 +1,35 @@
-<div class="flex flex-col items-center justify-center">
-  <h1 class="text-3xl">General Info</h1>
-  <form class="example-form w-[70%] p-[15px]">
-    <mat-form-field appearance="outline" class="w-full">
-      <mat-label>Name</mat-label>
-      <input matInput required placeholder="Enter your name here..." name="name" [(ngModel)]="formData.general.name">
-    </mat-form-field>
+<div class="pt-[10px] max-h-full flex flex-col items-center justify-center">
+  <mat-card class="w-[90%] max-w-[1200px]" appearance="outlined">
+    <mat-card-header>
+      <mat-card-title>Write about yourself</mat-card-title>
+    </mat-card-header>
 
-    <mat-form-field appearance="outline" class="w-full">
-      <mat-label>Email</mat-label>
-      <input matInput type="email" placeholder="Enter your name here..." name="email"
-        [(ngModel)]="formData.general.email">
-    </mat-form-field>
+    <mat-card-content>
+      <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" class="h-[70vh]" [(selectedIndex)]="selectedIndex">
+        <mat-tab class="h-full" label="General">
+          <app-general-info [generalInfo]="formData.general"></app-general-info>
+        </mat-tab>
 
-    <mat-form-field appearance="outline" class="w-full">
-      <mat-label>Telephone/Mobile</mat-label>
-      <input matInput type="email" placeholder="Enter your name here..." name="phone"
-        [(ngModel)]="formData.general.phone">
-    </mat-form-field>
+        <mat-tab class="h-full" label="Education">
+          <app-education [education]="formData.education"></app-education>
+        </mat-tab>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card-content>
 
-    <div class="flex items-center justify-between">
-      <h4 class="text-2xl">Additional Links</h4>
-      <button mat-stroked-button (click)="addAdditionalLink()">Add</button>
-    </div>
-    <ul>
-      @for (webLink of formData.general.links; track $index) {
-      <li class="pt-[10px] flex items-center justify-items-center justify-between gap-[10px]">
-        <mat-form-field appearance="outline" class="flex-grow" subscriptSizing="dynamic">
-          <mat-label>Title</mat-label>
-          <input matInput type="email" placeholder="What you will see written in the file..." name="title{{$index}}"
-            [(ngModel)]="webLink.title">
-        </mat-form-field>
-
-        <mat-form-field appearance="outline" class="flex-grow" subscriptSizing="dynamic">
-          <mat-label>Website Link</mat-label>
-          <input matInput required type="email" placeholder="The actual link for the website..." name="link{{$index}}"
-            [(ngModel)]="webLink.link">
-        </mat-form-field>
-
-        <button mat-stroked-button (click)="removeLink($index)">-</button>
-      </li>
-      }
-    </ul>
-  </form>
+    <mat-card-actions class="flex flex-col gap-[10px] m-[10px]" align="end">
+      <button mat-stroked-button [disabled]="!selectedIndex" (click)="previousStep()">
+        Prev
+      </button>
+      @if (selectedIndex < (matTabGroup?._allTabs?.length ?? 0) - 1) { <button mat-stroked-button (click)="nextStep()">
+        Next
+        </button>
+        }
+        @else {
+        <button mat-stroked-button (click)="nextStep()">
+          Save
+        </button>
+        }
+    </mat-card-actions>
+  </mat-card>
 </div>

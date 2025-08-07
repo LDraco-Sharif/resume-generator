@@ -1,0 +1,103 @@
+<form class="w-full h-full overflow-clip flex flex-col" #form="ngForm">
+    {{form.valid}}
+    <div class="flex items-center justify-between p-[10px]">
+        <h4 class="text-xl">Educational Info (will be shown in reverse order)</h4>
+        <button mat-stroked-button (click)="addEducationalInfo()">
+            Add
+        </button>
+    </div>
+    <div class="flex-grow w-full overflow-x-clip overflow-y-auto">
+        @for (ed of education; track $index) {
+        <mat-card appearance="outlined" class="m-[10px]">
+            <mat-card-content>
+                <div class="pt-[10px] flex items-center justify-items-center justify-between gap-[10px]">
+                    <div class="flex-grow flex flex-col gap-[10px]">
+                        #{{$index + 1}}.
+                        <div class="flex gap-[10px]">
+                            <mat-form-field appearance="outline" class="flex-grow" subscriptSizing="dynamic">
+                                <mat-label>Educational Institute (will be ignored if this field is empty)</mat-label>
+                                <input matInput [placeholder]="ed.institutionPlaceholder ?? ''"
+                                    name="institution{{$index}}" [(ngModel)]="ed.institutionName">
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline" class="flex-grow" subscriptSizing="dynamic">
+                                <mat-label>Major Subject</mat-label>
+                                <input matInput type="email" [placeholder]="ed.subjectPlaceholder ?? ''"
+                                    name="subject{{$index}}" [(ngModel)]="ed.subject">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="w-full flex items-center justify-center gap-[10px]">
+                            <mat-label>Select Scoring Type:</mat-label>
+                            {{scoreEnumOptions.includes(ed.scoreType)}}
+                            <mat-radio-group class="w-[50%] flex justify-between" aria-label="Select an option"
+                                name="scoringType{{$index}}" [(ngModel)]="ed.scoreType">
+                                @for (enum of scoreEnumOptions; track $index) {
+                                <mat-radio-button [checked]="ed.scoreType == enum"
+                                    [value]="enum">{{enum}}</mat-radio-button>
+                                }
+
+                                <mat-radio-button
+                                    [value]="scoreEnumOptions.includes(ed.scoreType) ? '' : ed.scoreType">Others</mat-radio-button>
+                            </mat-radio-group>
+                            <mat-form-field appearance="outline" class="flex-grow" subscriptSizing="dynamic">
+                                <mat-label>Custom Scoring Type</mat-label>
+                                <input matInput [disabled]="scoreEnumOptions.includes(ed.scoreType)" type="email"
+                                    name="link{{$index}}"
+                                    [ngModel]="scoreEnumOptions.includes(ed.scoreType) ? '' : ed.scoreType"
+                                    (ngModelChange)="ed.scoreType = $event">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="flex gap-[10px] items-center">
+                            <mat-form-field appearance="outline" class="flex-grow" subscriptSizing="dynamic">
+                                <mat-label>Score/Point Gained</mat-label>
+                                <input matInput name="score{{$index}}" [(ngModel)]="ed.score">
+                            </mat-form-field>
+                            <span> out of </span>
+                            <mat-form-field appearance="outline" class="flex-grow" subscriptSizing="dynamic">
+                                <mat-label>Total Score/Point</mat-label>
+                                <input matInput type="email" placeholder="Usually for Uni level"
+                                    name="totalScore{{$index}}"
+                                    [disabled]="findTotalScoreFromType(ed.scoreType) != null"
+                                    [ngModel]="findTotalScoreFromType(ed.scoreType) ?? ed.totalScore"
+                                    (ngModelChange)="ed.totalScore = $event">
+                            </mat-form-field>
+                        </div>
+
+                        <div class="flex gap-[10px] items-center">
+                            <mat-checkbox class="w-[10%]" [(ngModel)]="ed.isCurrentlyIn" name="current">Currently
+                                Studying?</mat-checkbox>
+                            <mat-checkbox class="w-[15%]" [(ngModel)]="ed.ignoreDate" name="ignoreDate">Ignore Exact
+                                Date in Report</mat-checkbox>
+                            <mat-checkbox class="w-[15%]" [(ngModel)]="ed.ignoreMonth" name="ignoreMonth">Ignore Exact
+                                Month in Report</mat-checkbox>
+                            <mat-form-field appearance="outline" class="flex-grow" subscriptSizing="dynamic">
+                                <mat-label>Start Date</mat-label>
+                                <input matInput [matDatepicker]="from" name="start{{$index}}"
+                                    [(ngModel)]="ed.startDate">
+                                <mat-datepicker-toggle matIconSuffix [for]="from"></mat-datepicker-toggle>
+                                <mat-datepicker #from appearance="outline" format></mat-datepicker>
+                            </mat-form-field>
+
+                            <mat-form-field appearance="outline" class="flex-grow" subscriptSizing="dynamic">
+                                <mat-label>End Date</mat-label>
+                                <input matInput [disabled]="ed.isCurrentlyIn" [matDatepicker]="to" name="end{{$index}}"
+                                    [ngModel]="ed.isCurrentlyIn ? '' : ed.endDate"
+                                    (ngModelChange)="ed.endDate = $event">
+                                <mat-datepicker-toggle matIconSuffix [for]="to"></mat-datepicker-toggle>
+                                <mat-datepicker #to appearance="outline" format></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                    <button mat-icon-button (click)="removeEducation($index)" [disabled]="ed.institutionPlaceholder">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </div>
+            </mat-card-content>
+        </mat-card>
+        }
+    </div>
+
+</form>
