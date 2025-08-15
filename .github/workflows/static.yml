@@ -35,22 +35,22 @@ jobs:
           # Build configuration for the angular app
           build_configuration: # optional, default is production
           # base href for the app
-          base_href: # optional, default is /
+          base_href: /resume-generator/ # optional, default is /
           # branch on which the angular build will be deployed
           deploy_branch: # optional, default is gh-pages
           # The folder in which `ng build` provides its output. This is the folder which will be deployed to the `deploy_branch`.
-          angular_dist_build_folder: # optional, default is dist
+          angular_dist_build_folder: ./dist/resume-generator # optional, default is dist
           # If the action should run 'ng lint'
           run_lint: # optional
           # Will not fail the step if anything fails
           skip_failure: # optional
                 
-      - name: Deploy to gh-pages
-        uses: AhsanAyaz/angular-deploy-gh-pages-actions@v1.4.0
-        with:
-          github_access_token: ${{ secrets.GITHUB_TOKEN }}
-          angular_project_dir: ./
-          build_configuration: production
-          base_href: /resume-generator/
-          deploy_branch: gh-pages
-          angular_dist_build_folder: dist/resume-generator
+    #  - name: Deploy to gh-pages
+     #   uses: AhsanAyaz/angular-deploy-gh-pages-actions@v1.4.0
+     #   with:
+     ##     github_access_token: ${{ secrets.GITHUB_TOKEN }}
+     #     angular_project_dir: ./
+     #     build_configuration: production
+     #     base_href: /resume-generator/
+     #     deploy_branch: gh-pages
+     #     angular_dist_build_folder: dist/resume-generator
