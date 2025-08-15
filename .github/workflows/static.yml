@@ -22,6 +22,9 @@ jobs:
 
       - name: Build Angular Project
         run: npm run build --configuration=production
+     
+      - name: List dist contents
+        run: ls -R dist/
 
       - name: Angular Deploy gh-pages Actions
         # You may pin to the exact commit or the version.
@@ -35,11 +38,11 @@ jobs:
           # Build configuration for the angular app
           build_configuration: # optional, default is production
           # base href for the app
-          base_href: /resume-generator/ # optional, default is /
+          base_href: resume-generator/ # optional, default is /
           # branch on which the angular build will be deployed
           deploy_branch: # optional, default is gh-pages
           # The folder in which `ng build` provides its output. This is the folder which will be deployed to the `deploy_branch`.
-          angular_dist_build_folder: dist/resume-generator/ # optional, default is dist
+          angular_dist_build_folder: dist/resume-generator # optional, default is dist
           # If the action should run 'ng lint'
           run_lint: # optional
           # Will not fail the step if anything fails
