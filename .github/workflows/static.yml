@@ -34,15 +34,15 @@ jobs:
           # Github access token token used to deploy on gh_pages. You can find it on Github.
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
           # The directory of the angular project, in which all the commands will run
-          angular_project_dir: # optional, default is ./
+          angular_project_dir: ./ # optional, default is ./
           # Build configuration for the angular app
-          build_configuration: # optional, default is production
+          build_configuration: production # optional, default is production
           # base href for the app
           base_href: /resume-generator/ # optional, default is /
           # branch on which the angular build will be deployed
-          deploy_branch: # optional, default is gh-pages
+          deploy_branch: gh-pages # optional, default is gh-pages
           # The folder in which `ng build` provides its output. This is the folder which will be deployed to the `deploy_branch`.
-          angular_dist_build_folder: dist/resume-generator/browser1 # optional, default is dist
+          angular_dist_build_folder: dist/resume-generator/browser # optional, default is dist
           # If the action should run 'ng lint'
           run_lint: # optional
           # Will not fail the step if anything fails
