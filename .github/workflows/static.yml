@@ -15,10 +15,13 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: '20'
 
       - name: Install Dependencies
         run: npm install
+
+      - name: Build Angular Project
+        run: npm run build --prod
 
       - name: Deploy to gh-pages
         uses: AhsanAyaz/angular-deploy-gh-pages-actions@v1.4.0
@@ -26,6 +29,6 @@ jobs:
           github_access_token: ${{ secrets.GITHUB_TOKEN }}
           angular_project_dir: ./
           build_configuration: production
-          base_href: /your-repo-name/
+          base_href: /resume-generator/
           deploy_branch: gh-pages
-          angular_dist_build_folder: dist/your-project-name
+          angular_dist_build_folder: dist/resume-generator
