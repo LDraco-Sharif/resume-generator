@@ -1,0 +1,7 @@
+@if (fileUrl) {
+    <div class="h-full w-full p-[10px]">
+        <iframe class="w-full h-[calc(100%-40px)]" [src]="fileUrl"></iframe>
+        <button mat-stroked-button (click)="generatePDF()">Generate PDF</button>
+    </div>
+        
+}

@@ -11,6 +11,7 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { EducationInfo } from '../../../interfaces/education-info';
 import { EducationScoreType } from '../../../enums/education-score-type';
+import { CommonService } from '../../../services/common.service';
 
 @Component({
   selector: 'app-education',
@@ -27,16 +28,7 @@ export class EducationComponent {
     return Object.keys(EducationScoreType);
   }
 
-  findTotalScoreFromType(type: EducationScoreType | string) {
-    if (type == EducationScoreType.CGPA) {
-      return 4;
-    } else if (type == EducationScoreType.GPA) {
-      return 5;
-    }
-    return null;
-  }
-
-  constructor() {
+  constructor(public commonService: CommonService) {
   }
 
   addEducationalInfo() {
@@ -44,7 +36,7 @@ export class EducationComponent {
       institutionName: '',
       scoreType: EducationScoreType.GPA,
       score: 0,
-      totalScore: 0,
+      totalScore: this.commonService.findTotalScoreFromType(EducationScoreType.GPA) ?? 0,
       startDate: null,
       isCurrentlyIn: false
     };

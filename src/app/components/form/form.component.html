@@ -5,28 +5,31 @@
     </mat-card-header>
 
     <mat-card-content>
-      <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" class="h-[70vh]" [(selectedIndex)]="selectedIndex">
-        <mat-tab class="h-full" label="General">
-          <app-general-info [generalInfo]="formData.general"></app-general-info>
-        </mat-tab>
-
-        <mat-tab class="h-full" label="Education">
-          <app-education [education]="formData.education"></app-education>
-        </mat-tab>
-        </mat-tab>
-      </mat-tab-group>
+      <mat-stepper class="h-[75vh] w-full overflow-auto" [linear]="true" [(selectedIndex)]="selectedIndex">
+        <mat-step class="h-full" label="General">
+            <app-general-info [generalInfo]="formData.general"></app-general-info>
+          </mat-step>
+          
+          <mat-step class="h-full" label="Education">
+            <app-education [education]="formData.education"></app-education>
+          </mat-step>
+          
+          <mat-step class="h-full" label="Work Experience">
+            <app-experience [experiences]="formData.experiences"></app-experience>
+          </mat-step>
+      </mat-stepper>
     </mat-card-content>
 
     <mat-card-actions class="flex flex-col gap-[10px] m-[10px]" align="end">
       <button mat-stroked-button [disabled]="!selectedIndex" (click)="previousStep()">
         Prev
       </button>
-      @if (selectedIndex < (matTabGroup?._allTabs?.length ?? 0) - 1) { <button mat-stroked-button (click)="nextStep()">
+      @if (selectedIndex < (matTabGroup?.steps?.length ?? 0) - 1) { <button mat-stroked-button (click)="nextStep()">
         Next
         </button>
         }
         @else {
-        <button mat-stroked-button (click)="nextStep()">
+        <button mat-stroked-button (click)="save()">
           Save
         </button>
         }
