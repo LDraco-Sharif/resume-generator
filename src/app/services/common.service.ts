@@ -13,7 +13,10 @@ export class CommonService {
   }
 
   getLocalStorageItem(key: string) {
-    return JSON.parse(localStorage.getItem(key) ?? "") ?? null;
+    if (localStorage[key]) {
+      return JSON.parse(localStorage.getItem(key) ?? "")
+    }
+    return null;
   }
 
   setLocalStorageItem(key: string, value: any) {

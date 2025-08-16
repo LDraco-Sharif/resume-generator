@@ -23,7 +23,10 @@ export class ResumePdfComponent implements OnInit {
   fileUrl?: SafeResourceUrl;
   ngOnInit(): void {
     this.data = this.commonService.getLocalStorageItem(this.resumeStorageName);
-    this.showPDF();
+
+    if(this.data) {
+      this.showPDF();
+    }
   }
 
   async showPDF() {
