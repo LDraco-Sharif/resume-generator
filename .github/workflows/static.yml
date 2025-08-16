@@ -55,7 +55,7 @@ jobs:
           
       # Optional: Verify deployment URL
       - name: Verify Deployment URL
-        run: curl -I https://<your-username>.github.io/resume-generator/
+        run: curl -I https://ldraco-sharif.github.io/resume-generator/
 
 
 
