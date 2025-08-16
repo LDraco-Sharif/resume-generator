@@ -25,7 +25,7 @@ export class ResumePdfComponent implements OnInit {
   ngOnInit(): void {
     this.data = this.commonService.getLocalStorageItem(this.resumeStorageName);
 
-    if(this.data) {
+    if (this.data) {
       this.showPDF();
     }
   }
@@ -77,9 +77,10 @@ export class ResumePdfComponent implements OnInit {
       {
         text: this.data?.general?.phone ?? "",
         link: this.data?.general?.phone ? ('tel:' + this.data?.general?.phone) : ''
-      },
-      ...contactLinks ?? []
-    ];
+      }
+    ].filter(c => c.text);
+
+    contactInfo = [...contactInfo, ...contactLinks ?? []]
 
 
     let docDefinition: any = {
@@ -102,13 +103,13 @@ export class ResumePdfComponent implements OnInit {
           ],
           style: 'contactInfo'
         },
-        ...this.sectionHeader('Profile'),
+        ...this.sectionHeader('Profile', !!this.data?.general.about),
         {
           text:
             this.data?.general.about,
           margin: [0, 0, 0, 5]
         },
-        ...this.sectionHeader('Work Experience'),
+        ...this.sectionHeader('Work Experience', (this.data?.experiences.length ?? 0) > 0),
         this.data?.experiences.map(e => {
           return [
             {
@@ -141,7 +142,7 @@ export class ResumePdfComponent implements OnInit {
             }
           ]
         }).reverse().flat(),
-        ...this.sectionHeader('Education'),
+        ...this.sectionHeader('Education', (this.data?.education.length ?? 0) > 0),
         this.data?.education.map(e => {
           return [
             {
@@ -185,12 +186,12 @@ export class ResumePdfComponent implements OnInit {
           fontSize: 22,
           bold: true,
           alignment: 'center',
-          margin: [0, 0, 0, 0] 
+          margin: [0, 0, 0, 0]
         },
         contactInfo: {
           fontSize: 12,
           alignment: 'center',
-          margin: [0, 0, 0, 0] 
+          margin: [0, 0, 0, 0]
         },
         sectionHeader: {
           fontSize: 13,
@@ -228,7 +229,11 @@ export class ResumePdfComponent implements OnInit {
     }).format(new Date(date ?? ""));
   }
 
-  sectionHeader(title: string) {
+  sectionHeader(title: string, show: boolean) {
+    if(!show) {
+      return [];
+    }
+
     return [
       { text: title, style: 'sectionHeader' },
       {
