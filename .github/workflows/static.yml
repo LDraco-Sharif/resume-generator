@@ -26,10 +26,10 @@ jobs:
       - name: List dist contents
         run: ls -R dist/
 
-            - name: Deploy Angular to GitHub Pages
-  # You may pin to the exact commit or the version.
-  # uses: bitovi/github-actions-angular-to-github-pages@a75a3bc81b046cf8af9515e46911c648bbfc6c67
-  uses: bitovi/github-actions-angular-to-github-pages@v1.0.0
+      - name: Deploy Angular to GitHub Pages
+        # You may pin to the exact commit or the version.
+        # uses: bitovi/github-actions-angular-to-github-pages@a75a3bc81b046cf8af9515e46911c648bbfc6c67
+        uses: bitovi/github-actions-angular-to-github-pages@v1.0.0
 
           
       # - name: Angular Deploy gh-pages Actions
