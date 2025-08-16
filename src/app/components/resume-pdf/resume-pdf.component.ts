@@ -21,6 +21,7 @@ export class ResumePdfComponent implements OnInit {
   data?: PortfolioData | null;
   file?: TCreatedPdf;
   fileUrl?: SafeResourceUrl;
+  isLoading: boolean = false;
   ngOnInit(): void {
     this.data = this.commonService.getLocalStorageItem(this.resumeStorageName);
 
@@ -38,10 +39,10 @@ export class ResumePdfComponent implements OnInit {
         bolditalics: 'fonts/Roboto-MediumItalic.ttf'
       },
       Tinos: {
-        normal: `${window.location.origin}/fonts/Tinos-Regular.ttf`,   // Path to your normal font file (e.g., .ttf or .otf)
-        bold: `${window.location.origin}/fonts/Tinos-Bold.ttf`, // Path to the bold font file (e.g., .ttf or .otf)
-        italics: `${window.location.origin}/fonts/Tinos-Italic.ttf`, // Path to the italic font file (if available)
-        bolditalics: `${window.location.origin}/fonts/Tinos-BoldItalic.ttf` // Path to the bold italic font file (if available)
+        normal: `https://fonts.cdnfonts.com/s/16056/Tinos-Regular.woff`,   // Path to your normal font file (e.g., .ttf or .otf)
+        bold: `https://fonts.cdnfonts.com/s/16056/Tinos-Bold.woff`, // Path to the bold font file (e.g., .ttf or .otf)
+        italics: `https://fonts.cdnfonts.com/s/16056/Tinos-Italic.ttf`, // Path to the italic font file (if available)
+        bolditalics: `https://fonts.cdnfonts.com/s/16056/Tinos-BoldItalic.ttf` // Path to the bold italic font file (if available)
       },
       Times: {
         normal: 'Times-Roman',
@@ -204,7 +205,9 @@ export class ResumePdfComponent implements OnInit {
 
     this.file = pdfMake.createPdf(docDefinition);
     // this.file.open();
+    this.isLoading = true;
     this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL(await (this.file as any).getBlob()));
+    this.isLoading = false;
   }
 
   generatePDF() {
