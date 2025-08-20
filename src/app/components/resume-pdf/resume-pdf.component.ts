@@ -109,77 +109,181 @@ export class ResumePdfComponent implements OnInit {
             this.data?.general.about,
           margin: [0, 0, 0, 5]
         },
-        ...this.sectionHeader('Work Experience', (this.data?.experiences.length ?? 0) > 0),
-        this.data?.experiences.map(e => {
-          return [
-            {
-              columns: [
+        {
+          stack: !this.data?.experiences.length ? [] : [
+            ...this.sectionHeader('Work Experience'),
+            this.data?.experiences.map(e => {
+              return [
                 {
-                  text: [
+                  columns: [
                     {
-                      text: e.role, bold: true
+                      text: [
+                        {
+                          text: e.role, bold: true
+                        },
+                        ', ',
+                        {
+                          text: e.company
+                        },
+                        ' - ',
+                        e.location
+                      ],
+                      width: '*',
                     },
-                    ', ',
                     {
-                      text: e.company
-                    },
-                    ' - ',
-                    e.location
+                      text: `${this.dateFormatter(e.startDate, e.ignoreMonth, e.ignoreDate)} - ${this.dateFormatter(e.endDate, e.ignoreMonth, e.ignoreDate) ?? 'Present'}`,
+                      width: 'auto'
+                    }
                   ],
-                  width: '*',
                 },
                 {
-                  text: `${this.dateFormatter(e.startDate, e.ignoreMonth, e.ignoreDate)} - ${this.dateFormatter(e.endDate, e.ignoreMonth, e.ignoreDate) ?? 'Present'}`,
-                  width: 'auto'
+                  ul: [
+                    ...e.responsibilities
+                  ],
+                  margin: [0, 0, 0, 0]
                 }
+              ]
+            }).reverse().flat(),
+          ],
+          unbreakable: true
+        },
+        {
+          stack: !this.data?.education.length ? [] : [
+            ...this.sectionHeader('Education'),
+            this.data?.education.map(e => {
+              return [
+                {
+                  columns: [
+                    {
+                      text: [
+                        {
+                          text: e.institutionName, bold: true
+                        }
+                      ],
+                      width: '*',
+                    },
+                    {
+                      text: `${this.dateFormatter(e.startDate, e.ignoreMonth, e.ignoreDate)} - ${this.dateFormatter(e.endDate, e.ignoreMonth, e.ignoreDate) ?? 'Present'}`,
+                      width: 'auto'
+                    }
+                  ],
+                },
+                { text: e.subject, margin: [0, 2, 0, 0] },
+                {
+                  ul: [
+                    {
+                      text: [
+                        {
+                          text: e.scoreType, bold: true
+                        },
+                        ': ',
+                        this.decimapPipe.transform(e.score, '1.1-2'),
+                        '/',
+                        this.decimapPipe.transform(e.totalScore, '1.1-2'),
+                      ]
+                    }
+                  ],
+                  margin: [0, 3, 0, 0]
+                }
+              ]
+            }).reverse().flat(),
+          ],
+          unbreakable: true
+        },
+        {
+          stack: !this.data?.projectTech.projects.length ? [] : [
+            ...this.sectionHeader('Projects'),
+            this.data?.projectTech.projects.map(p => {
+              return [
+                {
+                  columns: [
+                    {
+                      text: [
+                        {
+                          text: p.name, bold: true
+                        }
+                      ],
+                      width: '*',
+                    },
+                    {
+                      text: [
+                        ...p.links
+                          .filter(l => l.link)
+                          .map((l, index) => {
+                            let returnStrucure: any = {
+                              text: l.title,
+                              link: l.link
+                            }
+                            if (index < p.links.length - 1) {
+                              returnStrucure = [returnStrucure, " | "];
+                            }
+                            return returnStrucure;
+                          }).flat()
+                      ],
+                      width: 'auto'
+                    }
+                  ],
+                },
+                {
+                  ul: [
+                    ...p.descriptions,
+                    {
+                      text: !p.techs.length ? [] : [
+                        {
+                          text: "Tools Used: ",
+                          bold: true
+                        },
+                        ...p.techs.join(", ")
+                      ]
+                    }
+                  ],
+                  margin: [0, 0, 0, 3]
+                }
+              ]
+            }).flat(),
+          ],
+          unbreakable: true
+        },
+
+
+        {
+          stack: !((this.data?.projectTech?.tech?.languages?.length ?? 0)
+            + (this.data?.projectTech.tech.frameworks.length ?? 0)
+            + (this.data?.projectTech.tech.software.length ?? 0)) ? [] : [
+            ...this.sectionHeader('Technologies'),
+            {
+              text: [
+                {
+                  text: "Languages: ",
+                  bold: true
+                },
+                this.data?.projectTech.tech.languages.join(", ")
               ],
+              margin: [0, 0, 0, 3]
             },
             {
-              ul: [
-                ...e.responsibilities
+              text: [
+                {
+                  text: "Frameworks/Libraries: ",
+                  bold: true
+                },
+                this.data?.projectTech.tech.frameworks.join(", ")
+              ],
+              margin: [0, 0, 0, 3]
+            },
+            {
+              text: [
+                {
+                  text: "Softwares: ",
+                  bold: true
+                },
+                this.data?.projectTech.tech.software.join(", ")
               ],
               margin: [0, 0, 0, 3]
             }
-          ]
-        }).reverse().flat(),
-        ...this.sectionHeader('Education', (this.data?.education.length ?? 0) > 0),
-        this.data?.education.map(e => {
-          return [
-            {
-              columns: [
-                {
-                  text: [
-                    {
-                      text: e.institutionName, bold: true
-                    }
-                  ],
-                  width: '*',
-                },
-                {
-                  text: `${this.dateFormatter(e.startDate, e.ignoreMonth, e.ignoreDate)} - ${this.dateFormatter(e.endDate, e.ignoreMonth, e.ignoreDate) ?? 'Present'}`,
-                  width: 'auto'
-                }
-              ],
-            },
-            { text: e.subject, margin: [0, 2, 0, 0] },
-            {
-              ul: [
-                {
-                  text: [
-                    {
-                      text: e.scoreType, bold: true
-                    },
-                    ': ',
-                    this.decimapPipe.transform(e.score, '1.1-2'),
-                    '/',
-                    this.decimapPipe.transform(e.totalScore, '1.1-2'),
-                  ]
-                }
-              ],
-              margin: [0, 3, 0, 3]
-            }
-          ]
-        }).reverse().flat(),
+          ],
+          unbreakable: true
+        },
       ],
       styles: {
         header: {
@@ -229,8 +333,8 @@ export class ResumePdfComponent implements OnInit {
     }).format(new Date(date ?? ""));
   }
 
-  sectionHeader(title: string, show: boolean) {
-    if(!show) {
+  sectionHeader(title: string, show: boolean = true) {
+    if (!show) {
       return [];
     }
 

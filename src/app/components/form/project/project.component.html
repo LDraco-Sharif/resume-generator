@@ -1,1 +1,185 @@
-<p>project works!</p>
+<div class="w-full h-full py-[10px] flex flex-col items-center justify-center">
+    <form class="w-full h-full flex flex-col gap-[5px]">
+        <div class="flex items-center justify-between">
+            <h4 class="text-xl">Technologies Used:</h4>
+        </div>
+
+        <mat-form-field appearance="outline" class="w-full" subscriptSizing="dynamic">
+            <mat-label>Languages</mat-label>
+            <mat-chip-grid #languageChipGrid>
+                @for (language of projectTech.tech.languages; track $index) {
+                <mat-chip-row (removed)="remove($index, projectTech.tech.languages)" [editable]="false">
+                    {{language}}
+                    <button matChipRemove>
+                        <mat-icon>cancel</mat-icon>
+                    </button>
+                </mat-chip-row>
+                }
+                <input placeholder="Press Enter to Add Tag" [matChipInputFor]="languageChipGrid" name="language"
+                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="true"
+                    (matChipInputTokenEnd)="addTech($event, projectTech.tech.languages)" />
+            </mat-chip-grid>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-full" subscriptSizing="dynamic">
+            <mat-label>Frameworks/Libraries</mat-label>
+            <mat-chip-grid #frameworkChipGrid>
+                @for (framework of projectTech.tech.frameworks; track $index) {
+                <mat-chip-row (removed)="remove($index, projectTech.tech.frameworks)" [editable]="false">
+                    {{framework}}
+                    <button matChipRemove>
+                        <mat-icon>cancel</mat-icon>
+                    </button>
+                </mat-chip-row>
+                }
+                <input placeholder="Press Enter to Add Tag" [matChipInputFor]="frameworkChipGrid" name="framework"
+                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="true"
+                    (matChipInputTokenEnd)="addTech($event, projectTech.tech.frameworks)" />
+            </mat-chip-grid>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="w-full" subscriptSizing="dynamic">
+            <mat-label>Softwares</mat-label>
+            <mat-chip-grid #softwareChipGrid>
+                @for (software of projectTech.tech.software; track $index) {
+                <mat-chip-row (removed)="remove($index, projectTech.tech.software)" [editable]="false">
+                    {{software}}
+                    <button matChipRemove>
+                        <mat-icon>cancel</mat-icon>
+                    </button>
+                </mat-chip-row>
+                }
+                <input placeholder="Press Enter to Add Tag" [matChipInputFor]="softwareChipGrid" name="framework"
+                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="true"
+                    (matChipInputTokenEnd)="addTech($event, projectTech.tech.software)" />
+            </mat-chip-grid>
+        </mat-form-field>
+
+        <div class="flex items-center justify-between">
+            <h4 class="text-xl">Projects:</h4>
+            <button mat-icon-button (click)="addProject()">
+                <mat-icon>add</mat-icon>
+            </button>
+        </div>
+
+        <mat-card class="flex-grow min-h-[200px] w-full overflow-x-clip overflow-y-auto gap-[10px] p-[10px]"
+            appearance="outlined">
+            @for (project of projectTech.projects; track $index; let projIndex = $index) {
+            <mat-card class="flex !flex-row justify-items-center justify-between gap-[10px] p-[10px]"
+                appearance="outlined">
+                <div class="flex-grow flex flex-col gap-[10px]">
+                    #{{$index + 1}}.
+                    <mat-form-field appearance="outline" class="flex-grow" subscriptSizing="dynamic">
+                        <mat-label>Title</mat-label>
+                        <input matInput placeholder="Title (Keep empty to show link instead)" name="name{{$index}}"
+                            [(ngModel)]="project.name">
+                    </mat-form-field>
+
+                    <div class="w-full py-[10px]">
+                        <div class="flex items-center justify-between p-[10px]">
+                            <h3 class="text-l">Write about your project</h3>
+                            <button mat-stroked-button (click)="addProjectDescription($index)">
+                                Add
+                            </button>
+                        </div>
+
+                        <mat-card class="w-full flex flex-col justify-between gap-[10px] max-h-[300px] p-[10px]"
+                            appearance="outlined">
+                            @for (description of project.descriptions; track $index) {
+                            <div class="flex w-full gap-[10px] items-center">
+                                <mat-form-field appearance="outline" class="flex-grow" subscriptSizing="dynamic">
+                                    <input matInput [placeholder]="'Write here...'"
+                                        name="description{{projIndex}}_{{$index}}"
+                                        [(ngModel)]="project.descriptions[$index]">
+                                </mat-form-field>
+
+                                <button mat-icon-button (click)="remove($index, project.descriptions)">
+                                    <mat-icon>delete</mat-icon>
+                                </button>
+                            </div>
+                            }
+                            @empty {
+                            <div class="text-center">
+                                <i>Add some description</i>
+                            </div>
+                            }
+                        </mat-card>
+                    </div>
+
+                    <div class="w-full py-[10px]">
+                        <div class="flex items-center justify-between p-[10px]">
+                            <h3 class="text-l">Add links to your project</h3>
+                            <button mat-stroked-button (click)="addProjectLink($index)">
+                                Add
+                            </button>
+                        </div>
+                        <mat-card class="flex-grow w-full overflow-x-clip overflow-y-auto" appearance="outlined">
+                            <mat-card-content>
+                                @for (webLink of project.links; track $index) {
+                                <div
+                                    class="pt-[10px] flex items-center justify-items-center justify-between gap-[10px]">
+                                    <mat-form-field appearance="outline" class="flex-grow" subscriptSizing="dynamic">
+                                        <mat-label>Title</mat-label>
+                                        <input matInput placeholder="Title (Keep empty to show link instead)"
+                                            name="title{{projIndex}}_{{$index}}" [(ngModel)]="webLink.title">
+                                    </mat-form-field>
+
+                                    <mat-form-field appearance="outline" class="flex-grow" subscriptSizing="dynamic">
+                                        <mat-label>Link</mat-label>
+                                        <input matInput required placeholder="The actual link for the website..."
+                                            name="link{{projIndex}}_{{$index}}" [(ngModel)]="webLink.link">
+                                    </mat-form-field>
+
+                                    <button mat-icon-button (click)="remove($index, project.links)">
+                                        <mat-icon>delete</mat-icon>
+                                    </button>
+                                </div>
+                                }
+                                @empty {
+                                <div class="text-center">
+                                    <i>Add some links</i>
+                                </div>
+                                }
+                            </mat-card-content>
+                        </mat-card>
+                    </div>
+
+                    <mat-form-field appearance="outline">
+                        <mat-label>Select Tags from Technologies Used</mat-label>
+                        <mat-select multiple [(ngModel)]="project.techs" #selectedTechs="ngModel"
+                            name="projectTechs{{$index}}" (focus)="selectedTechs.control.markAsTouched()">
+                            <mat-select-trigger>
+                                <mat-chip-grid #projectTechChipGrid>
+                                    @for (tech of project.techs; track $index) {
+                                    <mat-chip-row [editable]="false"
+                                        (removed)="removeTechsFromProject(projIndex, $index)">
+                                        {{tech}}
+                                        <button matChipRemove>
+                                            <mat-icon>cancel</mat-icon>
+                                        </button>
+                                    </mat-chip-row>
+                                    }
+                                    <input class="hidden" matInput [matChipInputFor]="projectTechChipGrid">
+                                </mat-chip-grid>
+
+                            </mat-select-trigger>
+                            @for (tech of allTechs; track $index) {
+                            <mat-option [value]="tech">{{tech}}</mat-option>
+                            }
+                        </mat-select>
+
+                        @if(selectedTechs.touched && allTechs.length == 0){
+                        <mat-hint>Technology Section is empty</mat-hint>
+                        }
+                    </mat-form-field>
+                </div>
+                <button mat-icon-button (click)="remove($index, project.descriptions)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </mat-card>
+            }
+        </mat-card>
+
+
+    </form>
+</div>

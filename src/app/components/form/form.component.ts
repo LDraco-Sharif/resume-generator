@@ -1,24 +1,27 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { MatTabsModule, MatTabGroup } from '@angular/material/tabs';
+import { MatTabsModule } from '@angular/material/tabs';
 import { MatStepper, MatStepperModule } from '@angular/material/stepper';
-import { PortfolioData } from '../../interfaces/portfolio-data';
 import { MatCardModule } from '@angular/material/card';
-import { GeneralInfoComponent } from "./general-info/general-info.component";
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { PortfolioData } from '../../interfaces/portfolio-data';
+import { GeneralInfoComponent } from "./general-info/general-info.component";
 import { EducationComponent } from "./education/education.component";
 import { ExperienceComponent } from "./experience/experience.component";
 import { EducationScoreType } from '../../enums/education-score-type';
 import { CommonService } from '../../services/common.service';
+import { ProjectComponent } from "./project/project.component";
+
 
 @Component({
   selector: 'app-form',
   standalone: true,
-  imports: [FormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatTabsModule, MatCardModule, GeneralInfoComponent, MatTabGroup, EducationComponent, ExperienceComponent, MatStepperModule],
+  imports: [FormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatTabsModule, MatCardModule, GeneralInfoComponent, EducationComponent, ExperienceComponent, MatStepperModule, ProjectComponent],
   templateUrl: './form.component.html',
   styleUrl: './form.component.css'
 })
@@ -74,18 +77,26 @@ export class FormComponent implements OnInit {
         startDate: null,
         isCurrentlyIn: false
       }
-    ]
+    ],
+    projectTech: {
+      projects: [],
+      tech: {
+        software: [],
+        languages: [],
+        frameworks: []
+      }
+    }
   };
-  
+
   selectedIndex: number = 0;
 
-  constructor(private commonService: CommonService, private snack: MatSnackBar) {
+  constructor(private commonService: CommonService, private router: Router, private snack: MatSnackBar) {
   }
 
   ngOnInit(): void {
     let data = this.commonService.getLocalStorageItem(this.resumeStorageName);
     if (data) {
-      this.formData = data;
+      this.formData = { ...this.formData, ...data };
     }
 
     this.formData.education = this.formData.education.map(e => {
@@ -131,5 +142,10 @@ export class FormComponent implements OnInit {
       duration: 1000,
       panelClass: ["bg-green"]
     });
+  }
+
+  saveAndGeneratrPdf() {
+    this.save();
+    this.router.navigate(["resume"]);
   }
 }

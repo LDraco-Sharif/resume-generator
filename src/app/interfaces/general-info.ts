@@ -1,3 +1,4 @@
+import { ProjectTech } from "./project-tech";
 import { WebLink } from "./web-link";
 
 export interface GeneralInfo {
@@ -5,5 +6,5 @@ export interface GeneralInfo {
     email?: string,
     phone?: string,
     about?: string,
-    links: WebLink[]
+    links: WebLink[],
 }
