@@ -22,7 +22,7 @@ import { JsonPipe } from '@angular/common';
   styleUrl: './experience.component.css'
 })
 export class ExperienceComponent {
-  @Input({required: true}) experiences: Experience[] = [
+  @Input({ required: true }) experiences: Experience[] = [
   ];
 
   addExperienceInfo() {

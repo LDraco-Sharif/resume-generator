@@ -16,12 +16,14 @@ import { ExperienceComponent } from "./experience/experience.component";
 import { EducationScoreType } from '../../enums/education-score-type';
 import { CommonService } from '../../services/common.service';
 import { ProjectComponent } from "./project/project.component";
+import { PublicationComponent } from "./publication/publication.component";
+import { CertificationComponent } from "./certification/certification.component";
 
 
 @Component({
   selector: 'app-form',
   standalone: true,
-  imports: [FormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatTabsModule, MatCardModule, GeneralInfoComponent, EducationComponent, ExperienceComponent, MatStepperModule, ProjectComponent],
+  imports: [FormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatTabsModule, MatCardModule, GeneralInfoComponent, EducationComponent, ExperienceComponent, MatStepperModule, ProjectComponent, PublicationComponent, CertificationComponent],
   templateUrl: './form.component.html',
   styleUrl: './form.component.css'
 })
@@ -85,7 +87,9 @@ export class FormComponent implements OnInit {
         languages: [],
         frameworks: []
       }
-    }
+    },
+    publications: [],
+    certifications: []
   };
 
   selectedIndex: number = 0;
@@ -137,7 +141,15 @@ export class FormComponent implements OnInit {
     this.formData.experiences.map(xp => {
       xp.responsibilities = xp.responsibilities.filter(r => r);
     });
+
+    this.formData.projectTech.projects.filter(p => p.name);
+
+    this.formData.publications.filter(p => p.title);
+
+    this.formData.certifications.filter(c => c);
+
     this.commonService.setLocalStorageItem(this.resumeStorageName, this.formData);
+
     this.snack.open("Success", undefined, {
       duration: 1000,
       panelClass: ["bg-green"]

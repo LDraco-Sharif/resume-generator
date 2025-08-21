@@ -9,11 +9,3 @@
 ::ng-deep .mat-horizontal-stepper-content {
     height: 100%;
 }
-
-::ng-deep .bg-green {
-    background-color: green !important;
-}
-
-::ng-deep .bg-green>* {
-    background-color: green !important;
-}

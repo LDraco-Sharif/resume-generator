@@ -9,3 +9,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 {
   border-right: none;
 }
+
+.bg-green {
+    background-color: green !important;
+}
+
+.bg-green>* {
+    background-color: green !important;
+}

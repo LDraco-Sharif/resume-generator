@@ -1,17 +1,16 @@
 import { Component, Input } from '@angular/core';
-import { MatFormField, MatLabel } from '@angular/material/form-field';
-import { COMMA, ENTER } from '@angular/cdk/keycodes';
-import { MatChipEditedEvent, MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
-import { ProjectTech } from '../../../interfaces/project-tech';
-import { MatIconModule } from "@angular/material/icon";
 import { JsonPipe } from '@angular/common';
-import { MatCardModule } from '@angular/material/card';
 import { FormsModule } from '@angular/forms';
-import { MatSelectModule } from '@angular/material/select';
-import { Project } from '../../../interfaces/project';
+import { MatFormField, MatLabel } from '@angular/material/form-field';
+import { ENTER } from '@angular/cdk/keycodes';
+import { MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from "@angular/material/icon";
+import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { ErrorStateMatcher } from '@angular/material/core';
+import { MatSelectModule } from '@angular/material/select';
+import { ProjectTech } from '../../../interfaces/project-tech';
+import { Project } from '../../../interfaces/project';
 import { WebLink } from '../../../interfaces/web-link';
 
 @Component({

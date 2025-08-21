@@ -1,0 +1,86 @@
+<form class="w-full h-full overflow-clip flex flex-col" #form="ngForm">
+    <div class="flex items-center justify-between py-[10px]">
+        <h4 class="text-xl">Publications</h4>
+        <button mat-stroked-button (click)="addPublication()">
+            Add
+        </button>
+    </div>
+    <mat-card class="flex-grow w-full overflow-x-clip overflow-y-auto" appearance="outlined">
+        <mat-card-content>
+            @for (publication of publications; track $index; let pubIndex = $index) {
+            <mat-card appearance="outlined" class="m-[10px]">
+                <mat-card-content>
+                    <div class="pt-[10px] flex justify-items-center justify-between gap-[10px]">
+                        <div class="w-full flex-grow flex flex-col gap-[10px]">
+                            #{{pubIndex + 1}}.
+                            <div class="flex gap-[10px] flex-wrap">
+                                <mat-form-field appearance="outline" class="flex-grow" subscriptSizing="dynamic">
+                                    <mat-label>Title</mat-label>
+                                    <input matInput name="title{{pubIndex}}"
+                                        [placeholder]="'Will be ignored if this field is empty'"
+                                        [(ngModel)]="publication.title">
+                                </mat-form-field>
+
+                                <mat-form-field appearance="outline" class="w-full" subscriptSizing="dynamic">
+                                    <mat-label>DOI</mat-label>
+                                    <input matInput name="doi{{pubIndex}}" placeholder="xx.xxxxx/xxxx-xx..."
+                                        [(ngModel)]="publication.doi">
+                                </mat-form-field>
+                            </div>
+
+                            <div class="flex gap-[10px] items-center flex-wrap">
+                                <mat-checkbox class="min-w-[100px] max-w-[20%]" [(ngModel)]="publication.ignoreDate"
+                                    name="ignoreDate{{pubIndex}}">Ignore Exact
+                                    Date in Report</mat-checkbox>
+                                <mat-checkbox class="min-w-[100px] w-[20%]" [(ngModel)]="publication.ignoreMonth"
+                                    name="ignoreMonth{{pubIndex}}">Ignore Exact
+                                    Month in Report</mat-checkbox>
+                                <mat-form-field appearance="outline" class="flex-grow" subscriptSizing="dynamic">
+                                    <mat-label>Date</mat-label>
+                                    <input matInput [matDatepicker]="date" name="date{{pubIndex}}"
+                                        [(ngModel)]="publication.date">
+                                    <mat-datepicker-toggle matIconSuffix [for]="date"></mat-datepicker-toggle>
+                                    <mat-datepicker #date appearance="outline" format></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="flex items-center justify-between p-[10px]">
+                                <h3 class="text-l">Authors:</h3>
+                                <button mat-stroked-button (click)="addAuthors($index)">
+                                    Add
+                                </button>
+                            </div>
+
+                            <div class="w-full flex flex-col justify-between gap-[10px] max-h-[300px] ">
+                                @for (author of publication.authors; track $index) {
+                                <div class="flex w-full gap-[10px] items-center">
+                                    <mat-form-field appearance="outline" class="flex-grow" subscriptSizing="dynamic">
+                                        <input matInput [placeholder]="'Author ' + ($index + 1)"
+                                            name="responsibiity{{pubIndex}}_{{$index}}"
+                                            [(ngModel)]="publication.authors[$index]">
+                                    </mat-form-field>
+
+                                    <button mat-icon-button (click)="remove($index, publication.authors)">
+                                        <mat-icon>delete</mat-icon>
+                                    </button>
+                                </div>
+                                }
+                            </div>
+                        </div>
+
+                        <button mat-icon-button (click)="remove(pubIndex, publications)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+            }
+            @empty {
+            <div class="text-center">
+                <i>Add Publications</i>
+            </div>
+            }
+        </mat-card-content>
+    </mat-card>
+
+</form>

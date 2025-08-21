@@ -26,6 +26,14 @@
         <mat-step class="h-full" label="Technologies and Projects">
           <app-project [projectTech]="formData.projectTech"></app-project>
         </mat-step>
+
+        <mat-step class="h-full" label="Publications">
+          <app-publication [publications]="formData.publications"></app-publication>
+        </mat-step>
+
+        <mat-step class="h-full" label="Certifications">
+          <app-certification [certifications]="formData.certifications"></app-certification>
+        </mat-step>
       </mat-stepper>
     </mat-card-content>
 

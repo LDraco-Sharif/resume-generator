@@ -140,7 +140,7 @@ export class ResumePdfComponent implements OnInit {
                   ul: [
                     ...e.responsibilities
                   ],
-                  margin: [0, 0, 0, 0]
+                  margin: [0, 0, 0, 3]
                 }
               ]
             }).reverse().flat(),
@@ -183,7 +183,7 @@ export class ResumePdfComponent implements OnInit {
                       ]
                     }
                   ],
-                  margin: [0, 3, 0, 0]
+                  margin: [0, 0, 0, 3]
                 }
               ]
             }).reverse().flat(),
@@ -244,8 +244,46 @@ export class ResumePdfComponent implements OnInit {
           ],
           unbreakable: true
         },
-
-
+        {
+          stack: !this.data?.publications.length ? [] : [
+            ...this.sectionHeader('Publications'),
+            this.data?.publications.map(p => {
+              return [
+                {
+                  columns: [
+                    {
+                      text: p.title, bold: true
+                    },
+                    {
+                      text: `${this.dateFormatter(p.date, p.ignoreMonth, p.ignoreDate)}`,
+                      width: 'auto'
+                    }
+                  ],
+                },
+                {
+                  text: p.authors.join(", ")
+                },
+                {
+                  text: p.doi,
+                  link: "https://doi.org/" + p.doi,
+                  margin: [0, 0, 0, 3]
+                }
+              ]
+            }).flat(),
+          ],
+          unbreakable: true
+        },
+        {
+          stack: !this.data?.certifications.length ? [] : [
+            ...this.sectionHeader('Certifications'),
+            {
+              ul: [
+                ...this.data?.certifications
+              ]
+            }
+          ],
+          unbreakable: true
+        },
         {
           stack: !((this.data?.projectTech?.tech?.languages?.length ?? 0)
             + (this.data?.projectTech.tech.frameworks.length ?? 0)
@@ -342,7 +380,7 @@ export class ResumePdfComponent implements OnInit {
       { text: title, style: 'sectionHeader' },
       {
         canvas: [{ type: 'line', x1: 0, y1: 0, x2: 515, y2: 0, lineWidth: 0.1 }],
-        margin: [0, 0, 0, 5]
+        margin: [0, 0, 0, 3]
       },
     ];
   }

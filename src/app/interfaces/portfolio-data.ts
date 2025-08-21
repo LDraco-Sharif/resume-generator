@@ -2,10 +2,13 @@ import { EducationInfo } from "./education-info";
 import { Experience } from "./experience";
 import { GeneralInfo } from "./general-info";
 import { ProjectTech } from "./project-tech";
+import { Publication } from "./publication";
 
 export interface PortfolioData {
     general: GeneralInfo,
     education: EducationInfo[],
     experiences: Experience[],
-    projectTech: ProjectTech
+    projectTech: ProjectTech,
+    publications: Publication[],
+    certifications: string[]
 }

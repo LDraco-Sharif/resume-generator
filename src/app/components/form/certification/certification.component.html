@@ -1,0 +1,32 @@
+<form class="w-full h-full overflow-clip flex flex-col" #form="ngForm">
+    <div class="flex items-center justify-between py-[10px]">
+        <h4 class="text-xl">Certifications</h4>
+        <button mat-stroked-button (click)="addCertificate()">
+            Add
+        </button>
+    </div>
+    <mat-card class="flex-grow w-full overflow-x-clip overflow-y-auto" appearance="outlined">
+        <mat-card-content>
+            @for (certificate of certifications; track $index;) {
+
+            <div class="pt-[10px] flex items-center justify-between gap-[10px]">
+                <mat-form-field appearance="outline" class="flex-grow" subscriptSizing="dynamic">
+                    <mat-label>Certificate</mat-label>
+                    <input matInput name="title{{$index}}" [placeholder]="'Description ' + ($index + 1)"
+                        [(ngModel)]="certifications[$index]">
+                </mat-form-field>
+
+                <button mat-icon-button (click)="removeCertificate($index)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </div>
+            }
+            @empty {
+            <div class="text-center">
+                <i>Add Certifications</i>
+            </div>
+            }
+        </mat-card-content>
+    </mat-card>
+
+</form>
