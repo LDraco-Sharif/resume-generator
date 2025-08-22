@@ -10,7 +10,7 @@
     </mat-card-header>
 
     <mat-card-content>
-      <mat-stepper class="h-[75vh] w-full overflow-auto" [linear]="false" [(selectedIndex)]="selectedIndex">
+      <mat-stepper class="h-[75vh] w-full overflow-auto" [linear]="false" [(selectedIndex)]="selectedIndex" labelPosition="bottom">
         <mat-step class="h-full" label="General">
           <app-general-info [generalInfo]="formData.general"></app-general-info>
         </mat-step>

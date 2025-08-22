@@ -37,7 +37,9 @@ export class FormComponent implements OnInit {
       email: "",
       phone: "",
       about: "",
-      links: []
+      links: [{
+        link: ''
+      }]
     },
     education: [
       {
@@ -81,15 +83,30 @@ export class FormComponent implements OnInit {
       }
     ],
     projectTech: {
-      projects: [],
+      projects: [
+        {
+          name: '',
+          techs: [],
+          descriptions: [''],
+          links: [
+            {
+              link: ''
+            }
+          ]
+        }
+      ],
       tech: {
         software: [],
         languages: [],
         frameworks: []
       }
     },
-    publications: [],
-    certifications: []
+    publications: [{
+      title: '',
+      authors: [''],
+      doi: ''
+    }],
+    certifications: ['']
   };
 
   selectedIndex: number = 0;
