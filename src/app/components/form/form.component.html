@@ -1,52 +1,75 @@
 <div class="pt-[10px] max-h-full flex flex-col items-center justify-center">
   <mat-card class="w-[90%] max-w-[1200px]" appearance="outlined">
     <mat-card-header>
-      <div class="w-full flex justify-between items-center">
+      <div class="w-full flex justify-between items-center py-[10px]">
         <mat-card-title>Write about yourself</mat-card-title>
-        <button mat-stroked-button (click)="saveAndGeneratrPdf()">
+        <button mat-flat-button [color]="'primary'" (click)="saveAndGeneratrPdf()">
           Save and Generate PDF
         </button>
       </div>
     </mat-card-header>
 
     <mat-card-content>
-      <mat-stepper class="h-[75vh] w-full overflow-auto" [linear]="false" [(selectedIndex)]="selectedIndex" labelPosition="bottom">
-        <mat-step class="h-full" label="General">
+      <mat-stepper class="h-[calc(75vh-56px)] w-full overflow-auto" [linear]="false" [(selectedIndex)]="selectedIndex"
+        labelPosition="bottom">
+        <mat-step class="h-full" label="General" state="general">
           <app-general-info [generalInfo]="formData.general"></app-general-info>
         </mat-step>
 
-        <mat-step class="h-full" label="Education">
+        <mat-step class="h-full" label="Education" state="education">
           <app-education [education]="formData.education"></app-education>
         </mat-step>
 
-        <mat-step class="h-full" label="Work Experience">
+        <mat-step class="h-full" label="Work Experience" state="experience">
           <app-experience [experiences]="formData.experiences"></app-experience>
         </mat-step>
 
-        <mat-step class="h-full" label="Technologies and Projects">
+        <mat-step class="h-full" label="Technologies and Projects" state="tech">
           <app-project [projectTech]="formData.projectTech"></app-project>
         </mat-step>
 
-        <mat-step class="h-full" label="Publications">
+        <mat-step class="h-full" label="Publications" state="publication">
           <app-publication [publications]="formData.publications"></app-publication>
         </mat-step>
 
-        <mat-step class="h-full" label="Certifications">
+        <mat-step class="h-full" label="Certifications" state="certification">
           <app-certification [certifications]="formData.certifications"></app-certification>
         </mat-step>
+
+        <ng-template matStepperIcon="general">
+          <mat-icon>account_circle</mat-icon>
+        </ng-template>
+        <ng-template matStepperIcon="education">
+          <mat-icon>school</mat-icon>
+        </ng-template>
+        <ng-template matStepperIcon="experience">
+          <mat-icon>engineering</mat-icon>
+        </ng-template>
+        <ng-template matStepperIcon="tech">
+          <mat-icon>code</mat-icon>
+        </ng-template>
+        <ng-template matStepperIcon="publication">
+          <mat-icon>library_books</mat-icon>
+        </ng-template>
+        <ng-template matStepperIcon="certification">
+          <mat-icon>workspace_premium</mat-icon>
+        </ng-template>
+
       </mat-stepper>
     </mat-card-content>
 
     <mat-card-actions class="flex flex-col gap-[10px] m-[10px]" align="end">
-      <button mat-stroked-button [disabled]="!selectedIndex" (click)="previousStep()">
-        Prev
-      </button>
+      @if(selectedIndex) {
+        <button mat-stroked-button (click)="previousStep()">
+          Prev
+        </button>
+      }
       @if (selectedIndex < (matTabGroup?.steps?.length ?? 0) - 1) { <button mat-stroked-button (click)="nextStep()">
         Next
         </button>
         }
         @else {
-        <button mat-stroked-button (click)="save()">
+        <button mat-flat-button (click)="save()">
           Save
         </button>
         }

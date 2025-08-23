@@ -349,7 +349,7 @@ export class ResumePdfComponent implements OnInit {
     this.file = pdfMake.createPdf(docDefinition);
     // this.file.open();
     this.isLoading = true;
-    this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL(await (this.file as any).getBlob()));
+    this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL((await (this.file as any).getBlob())) + '#toolbar=0&navpanes=0');
     this.isLoading = false;
   }
 

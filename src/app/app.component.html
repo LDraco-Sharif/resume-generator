@@ -1,1 +1,12 @@
+<mat-toolbar class="flex flex-row">
+    <div #left class="flex flex-row gap-[10px] items-center">
+        <a [routerLink]="''" class="text-2xl font-bold">Resume Generator</a>
+        <a mat-button [routerLink]="'form'" [routerLinkActive]="'form'">Form</a>
+        <a mat-button [routerLink]="'resume'" class="">Generated Resume</a>
+    </div>
+    <div #middle ></div>
+    <div #right >
+    </div>
+</mat-toolbar>
+
 <router-outlet></router-outlet>

@@ -1,7 +1,7 @@
 @if (fileUrl) {
-    <div class="h-full w-full p-[10px]">
-        <iframe class="w-full h-[calc(100%-40px)]" [src]="fileUrl"></iframe>
-        <button mat-stroked-button (click)="generatePDF()">Generate PDF</button>
+    <div class="h-[calc(100%-70px)] w-full px-[10px] flex flex-col items-center">
+        <iframe class="w-[50%] h-[calc(100%-40px)] rounded" [src]="fileUrl" height="100%"></iframe>
+        <button mat-flat-button (click)="generatePDF()">Download PDF</button>
     </div>
         
 } @else {

@@ -1,1 +1,18 @@
-<p>home works!</p>
+<div class="w-full h-[calc(50%-64px)] flex flex-row justify-center items-start gap-[20px] p-[20px]">
+    <div class="flex flex-col gap-[10px]">
+        <h1 class="text-6xl font-bold">Create Your Resume</h1>
+        <div>
+            <div class="text-2xl" >Fill up this form and generate professional PDF automatically.</div>
+            <ul class="list-disc list-inside">
+                <li class="text-2xl">Login not required</li>
+                <li class="text-2xl">Everything is stored within your browser.</li>
+            </ul>
+        </div>
+        <div>
+            <a mat-flat-button [routerLink]="'form'">Give it a try!</a>
+        </div>
+    </div>
+    <div>
+        <img src="resume.png" class="h-full rounded-md border">
+    </div>
+</div>
