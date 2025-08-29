@@ -1,6 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { JsonPipe } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { MatFormField, MatLabel } from '@angular/material/form-field';
 import { ENTER } from '@angular/cdk/keycodes';
 import { MatChipInputEvent, MatChipsModule } from '@angular/material/chips';
@@ -23,6 +23,8 @@ import { WebLink } from '../../../interfaces/web-link';
 export class ProjectComponent {
   readonly separatorKeysCodes = [ENTER] as const;
 
+  @ViewChild(NgForm) form?: NgForm;
+  
   @Input({ required: true }) projectTech: ProjectTech = {
     projects: [],
     tech: {
@@ -31,7 +33,7 @@ export class ProjectComponent {
       frameworks: []
     }
   }
-
+  
   allTechOptions: any[] = [];
 
   get allTechs() {

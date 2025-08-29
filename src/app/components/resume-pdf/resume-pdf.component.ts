@@ -5,11 +5,12 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { CommonService } from '../../services/common.service';
 import { PortfolioData } from '../../interfaces/portfolio-data';
 import { DecimalPipe, formatNumber, getLocaleId } from '@angular/common';
+import { RouterLink, RouterModule } from "@angular/router";
 
 @Component({
   selector: 'app-resume-pdf',
   standalone: true,
-  imports: [MatButtonModule],
+  imports: [MatButtonModule, RouterModule],
   providers: [DecimalPipe],
   templateUrl: './resume-pdf.component.html',
   styleUrl: './resume-pdf.component.css'

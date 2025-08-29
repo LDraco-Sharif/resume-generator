@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -34,9 +34,16 @@ import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
   templateUrl: './form.component.html',
   styleUrl: './form.component.css'
 })
-export class FormComponent implements OnInit {
-  @ViewChild(MatStepper) matTabGroup?: MatStepper;
+export class FormComponent implements OnInit, AfterViewInit {
+  @ViewChild(MatStepper) matStepper?: MatStepper;
+  @ViewChild(GeneralInfoComponent) generalInfo?: GeneralInfoComponent;
+  @ViewChild(EducationComponent) education?: EducationComponent;
+  @ViewChild(ExperienceComponent) experience?: ExperienceComponent;
+  @ViewChild(ProjectComponent) project?: ProjectComponent;
+  @ViewChild(PublicationComponent) publication?: PublicationComponent;
+  @ViewChild(CertificationComponent) certification?: CertificationComponent;
 
+  tabComponents: (GeneralInfoComponent | EducationComponent | ExperienceComponent | ProjectComponent | PublicationComponent | CertificationComponent | undefined)[] = [];
   resumeStorageName = "RESUME";
   formData: PortfolioData = {
     general: {
@@ -94,12 +101,8 @@ export class FormComponent implements OnInit {
         {
           name: '',
           techs: [],
-          descriptions: [''],
-          links: [
-            {
-              link: ''
-            }
-          ]
+          descriptions: [],
+          links: []
         }
       ],
       tech: {
@@ -120,28 +123,46 @@ export class FormComponent implements OnInit {
 
   constructor(private commonService: CommonService, private router: Router, private snack: MatSnackBar) {
   }
-
+  
   ngOnInit(): void {
     let data = this.commonService.getLocalStorageItem(this.resumeStorageName);
     if (data) {
       this.formData = { ...this.formData, ...data };
     }
-
+    
     this.formData.education = this.formData.education.map(e => {
       return {
         ...e,
         totalScore: this.commonService.findTotalScoreFromType(e.scoreType) ?? e.totalScore
       }
-    })
+    });
   }
+  
+  ngAfterViewInit(): void {
+     this.tabComponents =  [this.generalInfo, this.education, this.experience, this.project, this.publication, this.certification];
+  }
+  
 
   previousStep() {
-    this.selectedIndex -= 1;
+    this.matStepper?.previous();
   }
 
   nextStep() {
-    if (this.selectedIndex < (this.matTabGroup?.steps.length ?? 0) - 1) {
-      this.selectedIndex += 1;
+    if (this.selectedIndex < (this.matStepper?.steps.length ?? 0) - 1) {
+
+      if(this.tabComponents[this.selectedIndex]?.form?.invalid) {
+        this.tabComponents[this.selectedIndex]?.form?.control.markAllAsTouched();
+        this.snack.open("One or more required fields are missing or invalid.", undefined, {
+          duration: 500,
+          panelClass: ['bg-red']
+        });
+        return;
+      }
+
+      if(this.matStepper?.selected) {
+        this.matStepper.selected.completed = true;
+        this.matStepper.next();
+      }
     }
   }
 

@@ -17,3 +17,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .bg-green>* {
     background-color: green !important;
 }
+
+.bg-red {
+    background-color: #C62828 !important;
+}
+
+.bg-red>* {
+    background-color: #C62828 !important;
+}

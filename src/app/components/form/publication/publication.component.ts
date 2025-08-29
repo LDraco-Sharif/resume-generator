@@ -1,6 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { Publication } from '../../../interfaces/publication';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from "@angular/material/datepicker";
@@ -19,6 +19,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
   styleUrl: './publication.component.css'
 })
 export class PublicationComponent {
+  @ViewChild(NgForm) form?: NgForm;
 
   @Input() publications: Publication[] = [];
 

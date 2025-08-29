@@ -71,7 +71,7 @@
                     #{{$index + 1}}.
                     <mat-form-field appearance="outline" class="flex-grow" subscriptSizing="dynamic">
                         <mat-label>Title</mat-label>
-                        <input matInput placeholder="Title (Keep empty to show link instead)" name="name{{$index}}"
+                        <input matInput required placeholder="Title (Keep empty to show link instead)" name="name{{$index}}"
                             [(ngModel)]="project.name">
                     </mat-form-field>
 

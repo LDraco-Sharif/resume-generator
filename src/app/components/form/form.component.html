@@ -10,29 +10,29 @@
     </mat-card-header>
 
     <mat-card-content>
-      <mat-stepper class="h-[calc(75vh-56px)] w-full overflow-auto" [linear]="false" [(selectedIndex)]="selectedIndex"
+      <mat-stepper class="h-[calc(75vh-56px)] w-full overflow-auto" [linear]="true" [(selectedIndex)]="selectedIndex"
         labelPosition="bottom">
-        <mat-step class="h-full" label="General" state="general">
+        <mat-step class="h-full" label="General" state="general" [completed]="false" [editable]="true">
           <app-general-info [generalInfo]="formData.general"></app-general-info>
         </mat-step>
 
-        <mat-step class="h-full" label="Education" state="education">
+        <mat-step class="h-full" label="Education" state="education" [completed]="false" [editable]="true">
           <app-education [education]="formData.education"></app-education>
         </mat-step>
 
-        <mat-step class="h-full" label="Work Experience" state="experience">
+        <mat-step class="h-full" label="Work Experience" state="experience" [completed]="false" [editable]="true">
           <app-experience [experiences]="formData.experiences"></app-experience>
         </mat-step>
 
-        <mat-step class="h-full" label="Technologies and Projects" state="tech">
+        <mat-step class="h-full" label="Technologies and Projects" state="tech" [completed]="false" [editable]="true">
           <app-project [projectTech]="formData.projectTech"></app-project>
         </mat-step>
 
-        <mat-step class="h-full" label="Publications" state="publication">
+        <mat-step class="h-full" label="Publications" state="publication" [completed]="false" [editable]="true">
           <app-publication [publications]="formData.publications"></app-publication>
         </mat-step>
 
-        <mat-step class="h-full" label="Certifications" state="certification">
+        <mat-step class="h-full" label="Certifications" state="certification" [completed]="false" [editable]="true">
           <app-certification [certifications]="formData.certifications"></app-certification>
         </mat-step>
 
@@ -64,7 +64,7 @@
           Prev
         </button>
       }
-      @if (selectedIndex < (matTabGroup?.steps?.length ?? 0) - 1) { <button mat-stroked-button (click)="nextStep()">
+      @if (selectedIndex < (matStepper?.steps?.length ?? 0) - 1) { <button mat-stroked-button (click)="nextStep()">
         Next
         </button>
         }

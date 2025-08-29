@@ -1,7 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
@@ -17,6 +17,8 @@ import { MatCardContent } from "@angular/material/card";
   styleUrl: './general-info.component.css'
 })
 export class GeneralInfoComponent {
+  @ViewChild(NgForm) form?: NgForm;
+
   @Input({ required: true }) generalInfo: GeneralInfo = {
     name: '',
     links: []

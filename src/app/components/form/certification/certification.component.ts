@@ -1,5 +1,5 @@
-import { Component, Input } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, Input, ViewChild } from '@angular/core';
+import { FormsModule, NgForm } from '@angular/forms';
 import { MatCardModule } from "@angular/material/card";
 import { MatInputModule } from "@angular/material/input";
 import { MatIconModule } from "@angular/material/icon";
@@ -14,6 +14,7 @@ import { MatButtonModule } from '@angular/material/button';
   styleUrl: './certification.component.css'
 })
 export class CertificationComponent {
+  @ViewChild(NgForm) form?: NgForm;
 
   @Input() certifications: string[] = [];
 

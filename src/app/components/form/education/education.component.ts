@@ -1,7 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatInputModule } from '@angular/material/input';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgForm } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -22,6 +22,8 @@ import { CommonService } from '../../../services/common.service';
   styleUrl: './education.component.css'
 })
 export class EducationComponent {
+  @ViewChild(NgForm) form?: NgForm;
+  
   @Input({required: true}) education: EducationInfo[] = [];
 
   get scoreEnumOptions() {

@@ -4,8 +4,13 @@
         <button mat-flat-button (click)="generatePDF()">Download PDF</button>
     </div>
         
+} @else if (isLoading) {
+    <div class="h-full text-center flex items-center justify-center">
+        <i>{{'Loading...'}}</i>
+    </div>
 } @else {
-    <p>
-        <i>{{isLoading ? 'Loading...' : 'Why not create a resume?'}}</i>
-    </p>
+   <div class="h-full text-center flex flex-col items-center justify-center gap-[10px]">
+        <i class="text-xl">{{'Resume not Found. Why not create one?'}}</i>
+        <a mat-flat-button [routerLink]="['/form']">Create a resume</a>
+    </div> 
 }
