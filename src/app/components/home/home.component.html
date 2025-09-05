@@ -8,11 +8,13 @@
                 <li class="text-2xl">Everything is stored within your browser.</li>
             </ul>
         </div>
-        <div>
-            <a mat-flat-button [routerLink]="'form'">Give it a try!</a>
+        <div class="flex gap-[5px] flex-wrap w-fit">
+            <a class="flex-grow w-fit" mat-flat-button [routerLink]="'form'">{{localResumeExists ? "Check your Form" : "Give it a try!"}}</a>
+            <button type="button" class="flex-grow w-fit" mat-flat-button (click)="fileInput.click()">Upload Resume Data</button>
+            <input hidden (change)="onFileSelected($event)" #fileInput type="file">
         </div>
     </div>
 
-    <img src="resume.png" class="h-full rounded-md border object-contain">
+    <img src="resume.png" class="rounded-md max-w-[50%] border object-contain">
 
 </div>

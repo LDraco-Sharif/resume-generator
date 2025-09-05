@@ -1,7 +1,15 @@
 @if (fileUrl) {
     <div class="h-[calc(100%-70px)] w-full px-[10px] flex flex-col items-center">
-        <iframe class="w-[50%] h-[calc(100%-40px)] rounded" [src]="fileUrl" height="100%"></iframe>
-        <button mat-flat-button (click)="generatePDF()">Download PDF</button>
+        <div class="flex w-[70%] h-full justify-between items-center">
+            <iframe class="w-[50%] h-[90%] rounded border" [src]="fileUrl"></iframe>
+            <mat-divider [vertical]="true" class="h-[50%]"></mat-divider>
+            <div class="w-[50%] max-w-[300px] flex flex-col justify-center p-[10px] gap-[10px]">
+                <h1 class="text-4xl py-[20px] text-center">Your Resume is Ready!</h1>
+                <button class="w-full" mat-flat-button (click)="generatePDF()">Download Resume</button>
+                <a class="w-full" mat-stroked-button [routerLink]="['/form']">Edit Form</a>
+                <button class="w-full" mat-stroked-button (click)="exportJson()">Export Resume Data</button>
+            </div>
+        </div>
     </div>
         
 } @else if (isLoading) {

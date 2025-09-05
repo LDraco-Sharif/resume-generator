@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDividerModule } from '@angular/material/divider';
 import pdfMake, { TCreatedPdf } from 'pdfmake/build/pdfmake';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { CommonService } from '../../services/common.service';
@@ -10,7 +11,7 @@ import { RouterLink, RouterModule } from "@angular/router";
 @Component({
   selector: 'app-resume-pdf',
   standalone: true,
-  imports: [MatButtonModule, RouterModule],
+  imports: [MatButtonModule, RouterModule, MatDividerModule],
   providers: [DecimalPipe],
   templateUrl: './resume-pdf.component.html',
   styleUrl: './resume-pdf.component.css'
@@ -348,7 +349,6 @@ export class ResumePdfComponent implements OnInit {
     };
 
     this.file = pdfMake.createPdf(docDefinition);
-    // this.file.open();
     this.isLoading = true;
     this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL((await (this.file as any).getBlob())) + '#toolbar=0&navpanes=0');
     this.isLoading = false;
@@ -356,7 +356,6 @@ export class ResumePdfComponent implements OnInit {
 
   generatePDF() {
     if (this.file) {
-      // this.file.open();
       this.file.download('Resume.pdf');
     }
   }
@@ -384,6 +383,16 @@ export class ResumePdfComponent implements OnInit {
         margin: [0, 0, 0, 3]
       },
     ];
+  }
+
+  exportJson() {
+    const jsonData = JSON.stringify(this.data);
+    const blob = new Blob([jsonData], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'Resume.json';
+    a.click();
   }
 }
 

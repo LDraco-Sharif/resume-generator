@@ -13,14 +13,23 @@ export class CommonService {
   }
 
   getLocalStorageItem(key: string) {
-    if (localStorage[key]) {
-      return JSON.parse(localStorage.getItem(key) ?? "")
+    try {
+      if (localStorage[key]) {
+        return JSON.parse(localStorage.getItem(key) ?? "")
+      }
+      return null;
+    } catch {
+      return null;
     }
-    return null;
   }
 
   setLocalStorageItem(key: string, value: any) {
-    localStorage.setItem(key, JSON.stringify(value));
+    if (typeof value == 'string') {
+      localStorage.setItem(key, value);
+    }
+    else {
+      localStorage.setItem(key, JSON.stringify(value));
+    }
   }
 
   findTotalScoreFromType(type: EducationScoreType | string) {
