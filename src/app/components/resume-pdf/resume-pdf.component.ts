@@ -24,7 +24,8 @@ export class ResumePdfComponent implements OnInit {
   file?: TCreatedPdf;
   fileUrl?: SafeResourceUrl;
   isLoading: boolean = false;
-  ngOnInit(): void {
+  
+  ngOnInit() {
     this.data = this.commonService.getLocalStorageItem(this.resumeStorageName);
 
     if (this.data) {
@@ -32,7 +33,7 @@ export class ResumePdfComponent implements OnInit {
     }
   }
 
-  async showPDF() {
+  showPDF() {
     const fonts = {
       Roboto: {
         normal: 'fonts/Roboto-Regular.ttf',
@@ -350,8 +351,11 @@ export class ResumePdfComponent implements OnInit {
 
     this.file = pdfMake.createPdf(docDefinition);
     this.isLoading = true;
-    this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(URL.createObjectURL((await (this.file as any).getBlob())) + '#toolbar=0&navpanes=0');
-    this.isLoading = false;
+
+    (this.file as any).getDataUrl().then((dataUrl: any) => {
+      this.fileUrl = this.sanitizer.bypassSecurityTrustResourceUrl(dataUrl + '#toolbar=0&navpanes=0');
+      this.isLoading = false;
+    });
   }
 
   generatePDF() {

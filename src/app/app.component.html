@@ -1,12 +1,27 @@
-<mat-toolbar class="flex flex-row">
-    <div #left class="flex flex-row gap-[10px] items-center">
-        <a [routerLink]="''" class="text-2xl font-bold">Resume Generator</a>
-        <a mat-button [routerLink]="'form'" [routerLinkActive]="'form'">Form</a>
-        <a mat-button [routerLink]="'resume'" class="">Generated Resume</a>
-    </div>
-    <div #middle ></div>
-    <div #right >
-    </div>
-</mat-toolbar>
-
-<router-outlet></router-outlet>
+<div class="w-full h-full flex flex-col">
+    <mat-toolbar class="flex flex-row">
+        <div #left class="flex flex-row gap-[10px] items-center">
+            <button mat-icon-button class="sm:!hidden" (click)="sidenav.toggle()">
+                <mat-icon>menu</mat-icon>
+            </button>
+            <a [routerLink]="''" class="text-2xl font-bold">Resume Generator</a>
+            <a mat-button [routerLink]="'form'" class="!hidden sm:!inline-flex">Form</a>
+            <a mat-button [routerLink]="'resume'" class="!hidden sm:!inline-flex">Generated Resume</a>
+        </div>
+        <div #middle></div>
+        <div #right>
+        </div>
+    </mat-toolbar>
+    <mat-sidenav-container class="w-full flex-grow">
+        <mat-sidenav-content>
+            <router-outlet></router-outlet>
+        </mat-sidenav-content>
+        <mat-sidenav #sidenav [mode]="'over'" class="!rounded-none max-w-[80%]">
+            <div class="flex flex-col w-full p-[10px] gap-[10px]">
+                <a [routerLink]="''" class="" (click)="closeSideNav()">Home</a>
+                <a [routerLink]="'form'" class="" (click)="closeSideNav()">Form</a>
+                <a [routerLink]="'resume'" class="" [routerLinkActive]="'resume'" (click)="closeSideNav()">Generated Resume</a>
+            </div>
+        </mat-sidenav>
+    </mat-sidenav-container>
+</div>

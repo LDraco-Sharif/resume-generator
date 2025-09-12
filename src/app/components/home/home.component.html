@@ -9,12 +9,14 @@
             </ul>
         </div>
         <div class="flex gap-[5px] flex-wrap w-fit">
-            <a class="flex-grow w-fit" mat-flat-button [routerLink]="'form'">{{localResumeExists ? "Check your Form" : "Give it a try!"}}</a>
-            <button type="button" class="flex-grow w-fit" mat-flat-button (click)="fileInput.click()">Upload Resume Data</button>
+            <a class="flex-grow w-fit" mat-flat-button [routerLink]="'form'">{{localResumeExists ? "Check your Form" :
+                "Give it a try!"}}</a>
+            <button type="button" class="flex-grow w-fit" mat-flat-button (click)="fileInput.click()">Upload Resume
+                Data</button>
             <input hidden (change)="onFileSelected($event)" #fileInput type="file">
         </div>
     </div>
 
-    <img src="resume.png" class="rounded-md max-w-[50%] border object-contain">
+    <img src="resume.png" class="hidden md:block max-w-[50%] border object-contain">
 
 </div>
