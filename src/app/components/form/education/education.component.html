@@ -39,7 +39,7 @@
                                     [value]="scoreEnumOptions.includes(ed.scoreType) ? '' : ed.scoreType">Others</mat-radio-button>
                             </mat-radio-group>
                             <mat-form-field appearance="outline" class="flex-grow" subscriptSizing="dynamic">
-                                <mat-label>Custom Scoring Type</mat-label>
+                                <mat-label>Custom Scoring</mat-label>
                                 <input matInput [disabled]="scoreEnumOptions.includes(ed.scoreType)"
                                     name="link{{$index}}"
                                     [ngModel]="scoreEnumOptions.includes(ed.scoreType) ? '' : ed.scoreType"
@@ -47,22 +47,24 @@
                             </mat-form-field>
                         </div>
 
-                        <div class="flex gap-[10px] items-center flex-wrap">
-                            <mat-form-field appearance="outline" class="flex-grow" subscriptSizing="dynamic">
-                                <mat-label>Score/Point Gained</mat-label>
-                                <input matInput type="number" name="score{{$index}}" [(ngModel)]="ed.score">
-                            </mat-form-field>
-                            <span> out of </span>
-                            <mat-form-field appearance="outline" class="flex-grow" subscriptSizing="dynamic">
-                                <mat-label>Total Score/Point</mat-label>
-                                <input matInput placeholder="Usually for Uni level"
-                                    type="number"
-                                    name="totalScore{{$index}}"
-                                    [disabled]="commonService.findTotalScoreFromType(ed.scoreType) != null"
-                                    [ngModel]="commonService.findTotalScoreFromType(ed.scoreType) ?? ed.totalScore"
-                                    (ngModelChange)="ed.totalScore = commonService.findTotalScoreFromType(ed.scoreType) ?? $event">
-                            </mat-form-field>
-                        </div>
+                        @if(scoreEnumOptions.includes(ed.scoreType)) {
+                            <div class="flex gap-[10px] items-center flex-wrap">
+                                <mat-form-field appearance="outline" class="flex-grow" subscriptSizing="dynamic">
+                                    <mat-label>Score/Point Gained</mat-label>
+                                    <input matInput type="number" name="score{{$index}}" [(ngModel)]="ed.score">
+                                </mat-form-field>
+                                <span> out of </span>
+                                <mat-form-field appearance="outline" class="flex-grow" subscriptSizing="dynamic">
+                                    <mat-label>Total Score/Point</mat-label>
+                                    <input matInput placeholder="Usually for Uni level"
+                                        type="number"
+                                        name="totalScore{{$index}}"
+                                        [disabled]="commonService.findTotalScoreFromType(ed.scoreType) != null"
+                                        [ngModel]="commonService.findTotalScoreFromType(ed.scoreType) ?? ed.totalScore"
+                                        (ngModelChange)="ed.totalScore = commonService.findTotalScoreFromType(ed.scoreType) ?? $event">
+                                </mat-form-field>
+                            </div>
+                        }
 
                         <div class="flex gap-[10px] items-center flex-wrap">
                             <mat-checkbox class="min-w-[100px] w-[10%]" [(ngModel)]="ed.isCurrentlyIn" name="current{{$index}}">Currently

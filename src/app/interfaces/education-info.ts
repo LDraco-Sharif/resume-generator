@@ -3,6 +3,7 @@ import { EducationScoreType } from "../enums/education-score-type";
 export interface EducationInfo {
     institutionName: string,
     subject?: string,
+    ignoreScoring: boolean,
     scoreType: EducationScoreType | string,
     score: number,
     totalScore: number,

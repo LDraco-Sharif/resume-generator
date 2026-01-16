@@ -40,7 +40,8 @@ export class EducationComponent {
       score: 0,
       totalScore: this.commonService.findTotalScoreFromType(EducationScoreType.GPA) ?? 0,
       startDate: null,
-      isCurrentlyIn: false
+      isCurrentlyIn: false,
+      ignoreScoring: false
     };
     this.education.push(eduInfo);
   }

@@ -19,12 +19,13 @@ import { ProjectComponent } from "./project/project.component";
 import { PublicationComponent } from "./publication/publication.component";
 import { CertificationComponent } from "./certification/certification.component";
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import { OthersComponent } from "./others/others.component";
 
 
 @Component({
   selector: 'app-form',
   standalone: true,
-  imports: [FormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatTabsModule, MatCardModule, GeneralInfoComponent, EducationComponent, ExperienceComponent, MatStepperModule, ProjectComponent, PublicationComponent, CertificationComponent],
+  imports: [FormsModule, MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatTabsModule, MatCardModule, GeneralInfoComponent, EducationComponent, ExperienceComponent, MatStepperModule, ProjectComponent, PublicationComponent, CertificationComponent, OthersComponent],
   providers: [
     {
       provide: STEPPER_GLOBAL_OPTIONS,
@@ -64,7 +65,8 @@ export class FormComponent implements OnInit, AfterViewInit {
         institutionPlaceholder: 'School (or equivalent)',
         subjectPlaceholder: 'Ex: SSC (Science)',
         startDate: null,
-        isCurrentlyIn: false
+        isCurrentlyIn: false,
+        ignoreScoring: false
       },
       {
         institutionName: '',
@@ -74,7 +76,8 @@ export class FormComponent implements OnInit, AfterViewInit {
         institutionPlaceholder: 'College (or equivalent)',
         subjectPlaceholder: 'Ex: HSC (Science)',
         startDate: null,
-        isCurrentlyIn: false
+        isCurrentlyIn: false,
+        ignoreScoring: false
       },
       {
         institutionName: '',
@@ -84,7 +87,8 @@ export class FormComponent implements OnInit, AfterViewInit {
         institutionPlaceholder: 'University (or equivalent)',
         subjectPlaceholder: 'Usually for Uni level',
         startDate: null,
-        isCurrentlyIn: false
+        isCurrentlyIn: false,
+        ignoreScoring: false
       },
     ],
     experiences: [
@@ -116,7 +120,8 @@ export class FormComponent implements OnInit, AfterViewInit {
       authors: [''],
       doi: ''
     }],
-    certifications: ['']
+    certifications: [''],
+    miscList: []
   };
 
   selectedIndex: number = 0;

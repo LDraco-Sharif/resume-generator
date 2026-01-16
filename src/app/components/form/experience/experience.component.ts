@@ -50,5 +50,4 @@ export class ExperienceComponent {
   removeResponsibility(experienceIndex: number, responsibilityIndex: number) {
     this.experiences[experienceIndex].responsibilities.splice(responsibilityIndex, 1);
   }
-
 }

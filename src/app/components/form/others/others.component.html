@@ -1,0 +1,62 @@
+<form class="w-full h-full overflow-clip flex flex-col" #form="ngForm">
+    <div class="flex items-center justify-between py-[10px]">
+        <h4 class="text-xl">Miscellanious</h4>
+        <button mat-stroked-button (click)="addMisc()">
+            Add
+        </button>
+    </div>
+    <mat-card class="flex-grow w-full overflow-x-clip overflow-y-auto" appearance="outlined">
+        <mat-card-content>
+            @for (misc of miscList; track $index; let miscIndex = $index) {
+            <mat-card appearance="outlined" class="m-[10px]">
+                <mat-card-content>
+                    <div class="pt-[10px] flex justify-items-center justify-between gap-[10px]">
+                        <div class="w-full flex-grow flex flex-col gap-[10px]">
+                            #{{miscIndex + 1}}.
+                            <div class="flex gap-[10px] flex-wrap">
+                                <mat-form-field appearance="outline" class="flex-grow" subscriptSizing="dynamic">
+                                    <mat-label>Name</mat-label>
+                                    <input matInput name="miscName{{miscIndex}}"
+                                        [placeholder]="'Will be ignored if this field is empty'" [(ngModel)]="misc.name">
+                                </mat-form-field>
+                            </div>
+    
+                            <div class="flex items-center justify-between p-[10px]">
+                                <h3 class="text-l">Add Points</h3>
+                                <button mat-stroked-button (click)="addOption($index)">
+                                    Add
+                                </button>
+                            </div>
+    
+                            <div class="w-full flex flex-col justify-between gap-[10px] max-h-[300px] ">
+                                @for (responsibiity of misc.options; track $index) {
+                                    <div class="flex w-full gap-[10px] items-center">
+                                        <mat-form-field appearance="outline" class="flex-grow" subscriptSizing="dynamic">
+                                            <input matInput [placeholder]="'Write here...'" name="option{{miscIndex}}_{{$index}}"
+                                                [(ngModel)]="misc.options[$index]">
+                                        </mat-form-field>
+    
+                                        <button mat-icon-button (click)="removeOption(miscIndex, $index)">
+                                            <mat-icon>delete</mat-icon>
+                                        </button>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+    
+                        <button mat-icon-button (click)="removeMisc(miscIndex)">
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                    </div>
+                </mat-card-content>
+            </mat-card>
+            }
+            @empty {
+                <div class="text-center">
+                    <i>Add Custom Sections</i>
+                </div>
+            }
+        </mat-card-content>
+    </mat-card>
+
+</form>

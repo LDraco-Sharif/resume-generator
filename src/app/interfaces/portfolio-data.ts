@@ -1,3 +1,4 @@
+import { Miscellanious } from "../classes/miscellanious";
 import { EducationInfo } from "./education-info";
 import { Experience } from "./experience";
 import { GeneralInfo } from "./general-info";
@@ -10,5 +11,6 @@ export interface PortfolioData {
     experiences: Experience[],
     projectTech: ProjectTech,
     publications: Publication[],
-    certifications: string[]
+    certifications: string[],
+    miscList: Miscellanious[]
 }

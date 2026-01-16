@@ -36,6 +36,10 @@
           <app-certification [certifications]="formData.certifications"></app-certification>
         </mat-step>
 
+        <mat-step class="h-full" label="Others" state="others" [completed]="false" [editable]="true">
+          <app-others [miscList]="formData.miscList"></app-others>
+        </mat-step>
+
         <ng-template matStepperIcon="general">
           <mat-icon>account_circle</mat-icon>
         </ng-template>
@@ -55,6 +59,9 @@
           <mat-icon>workspace_premium</mat-icon>
         </ng-template>
 
+        <ng-template matStepperIcon="others">
+          <mat-icon>list</mat-icon>
+        </ng-template>
       </mat-stepper>
     </mat-card-content>
 

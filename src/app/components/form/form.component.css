@@ -4,6 +4,7 @@
 
 ::ng-deep .mat-horizontal-content-container {
     height: 100%;
+    padding: 0;
 }
 
 ::ng-deep .mat-horizontal-stepper-content {

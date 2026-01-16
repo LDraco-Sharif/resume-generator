@@ -7,6 +7,7 @@ import { CommonService } from '../../services/common.service';
 import { PortfolioData } from '../../interfaces/portfolio-data';
 import { DecimalPipe, formatNumber, getLocaleId } from '@angular/common';
 import { RouterLink, RouterModule } from "@angular/router";
+import { EducationScoreType } from '../../enums/education-score-type';
 
 @Component({
   selector: 'app-resume-pdf',
@@ -175,7 +176,7 @@ export class ResumePdfComponent implements OnInit {
                 {
                   ul: [
                     {
-                      text: [
+                      text: Object.keys(EducationScoreType).includes(e.scoreType) ? [
                         {
                           text: e.scoreType, bold: true
                         },
@@ -183,7 +184,7 @@ export class ResumePdfComponent implements OnInit {
                         this.decimapPipe.transform(e.score, '1.1-2'),
                         '/',
                         this.decimapPipe.transform(e.totalScore, '1.1-2'),
-                      ]
+                      ] : [ e.scoreType ]
                     }
                   ],
                   margin: [0, 0, 0, 3]
@@ -325,6 +326,19 @@ export class ResumePdfComponent implements OnInit {
           ],
           unbreakable: true
         },
+        this.data?.miscList.map((m) => {
+          return  {
+          stack: !m.options.length ? [] : [
+            ...this.sectionHeader(m.name),
+            {
+              ul: [
+                ...m.options
+              ]
+            }
+          ],
+          unbreakable: true
+        }
+        })
       ],
       styles: {
         header: {
